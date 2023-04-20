@@ -88,25 +88,64 @@ var questionObject = [
 {
     "question": "You see a box of pens at Noisebridge, but after two weeks no one is using them, is it ok to take one home without asking anyone?",
     "answers": [
-        ["Yes",0,"Yup, no one really cares about a single pen"],
-        ["Yes, but only after asking 2 people",2,"You might annoy people by asking"],
-        ["No, those are for Noisebridge Members Only",5,"You show risk of caring too much about the rules"],
+        ["Yes",0,"Yup, no one really cares about a single pen."],
+        ["Yes, but only after asking 2 people",2,"You might annoy people by asking."],
+        ["No, those are for Noisebridge Members Only",5,"You show risk of caring too much about the rules."],
     ],
 },
 {
     "question": "You see a half built project at Noisebridge with a note saying 'Do Not Hack' and it is dated from 1 week ago, is it ok to hack it?",
     "answers": [
-        ["No, under no circumstances",2,"Everything is possible"],
-        ["Yes, but only after asking the project owner",0,"It is excellent to improve projects at Noisebridge"],
-        ["Yes, I can do whatever I want",25,"Your risk of getting banned just increased"],
+        ["No, under no circumstances",2,"Everything is possible."],
+        ["Yes, but only after asking the project owner",0,"It is excellent to improve projects at Noisebridge."],
+        ["Yes, I can do whatever I want",25,"Your risk of getting banned just increased."],
     ]
 },
 {
     "question": "You are an angel investor who wants to invest in all the Noisebridge Startups, you should...",
     "answers": [
-        ["Interupt everyone while they are working to talk about how great your project is",50,"Almost to 86"],
-        ["Spread the word quietly and let people come to you",10,"Hmmmmm"],
-        ["Don't even try to invest here",0,"This is excellent."],
+        ["Interupt everyone while they are working to talk about how lucky they would be to have you as an investor.",86,"That is an 86ing"],
+        ["Spread the word quietly and let people come to you.",10,"Hmmmmm. Could find you the next billion dollar company."],
+        ["Donate a large sum of money to Noisebridge anonymously.",-10,"You are excellent."],
+    ]
+},
+{
+    "question": "Someone is working quietly and they are making an obvious mistake, you choose to...",
+    "answers": [
+        ["Interupt them and show them the right way to do it, with lengthy explanations.",26,"Not excellent."],
+        ["Ask them politely if they would like help.",1,"Nice Approach."],
+        ["Wait for them to look up and sigh in frustration, before leading with 'cool project, want help with that?'",7,"Nice, but you might get sucked into a lengthy project that you will regret later."],
+    ]
+},
+{
+    "question": "Do you think you are the King of Noisebridge?",
+    "answers": [
+        ["Yes, and I plan to interupt the Tuesday meeting to let everyone know!",100,"Straight to 86, straight away."],
+        ["No",1,"Nice, but your risk increases for even thinking about it."],
+        ["Yes, but only when no one else is here",9,"Oh, you do huh?"],
+    ]
+},
+{
+"question": "It's 11:30 PM. A stranger rings the doorbell and mutters something about hacking stolen phones. Do you let them in?",
+    "answers": [
+        ["Of course, Noisebridge is open to everyone.",30,"No. Stand your ground and defend Noisebridge."],
+        ["No. I answer the door and tell them the space is closed.",15,"Nice of you, but could lead to a long conversation you would regret."],
+        ["I ignore the situation.",3,"This is the way."]
+    ]
+},
+{
+"question": "You lose access to a shower and need a place to clean up. Do you:",
+    "answers": [
+        ["Shower in the upstairs bathroom at Noisebridge.",30,"Dang, our water bill is already $1200"],
+        ["Ask a friend if you can shower at their house.",0,"Please introduce your excellent friend to Noisebridge."],
+        ["Shower at a drop-in center in the neighborhood.",0,"Thanks for your consideration of keeping Noisebridge excellent for all."]
+    ]
+},
+{
+    "question": "Did you contribute to this quiz?",
+    "answers": [
+        ["Yes",30,"Uh-oh"],
+        ["No",1,"Okey Dokey, maybe contribute?"],
     ]
 }
 ];
@@ -149,13 +188,53 @@ console.log("showScore",score,message);
     questionCounter++;
 
     var response=message;
+
+if (questionCounter==questionObject.length-1) 
+{
+    response+=`<br><button onClick="riskAssessment()">View Your Final Risk Assessment</button>`
+}
+else 
+{
     response+=`<br><button onClick="createNextQuestion(${questionCounter})">Next Question</button>`
+}
+
+    
+
 
     document.getElementById("quizContainer").innerHTML = response;
 
 
 }
 
+
+function riskAssessment() {
+
+if (riskBarCounter>100) 
+{
+var riskMessage=`<h1>Your Final Risk Score is ${riskBarCounter}%</h1>
+<h2>You are an 86 Risk</h2>
+<h3>Time for some introspection on what it means to be excellent.</h3>
+<br><button onClick="createNextQuestion(0)">Try Again</button>`;
+}
+else if (riskBarCounter<100 && riskBarCounter>50) 
+{
+var riskMessage=`<h1>Your Final Risk Score is ${riskBarCounter}%</h1>
+<h2>You have medium risk of getting 86d.</h2>
+<h3>Try to contribute to the community a bit more, and re-evaluate some choices.</h3>
+<br><button onClick="createNextQuestion(0)">Try The Quiz Again</button>`;
+}
+else 
+{
+var riskMessage=`<h1>Your Final Risk Score is ${riskBarCounter}%</h1>
+<h2>Congratulations! You are at low risk of getting banned from Noisebridge.</h2>
+<h3>Spread your knowledge of excellence on to other hackers!</h3>
+<br><button onClick="createNextQuestion(0)">Try The Quiz Again</button>`;
+}
+
+document.getElementById("quizContainer").innerHTML = riskMessage;
+
+
+}
 
 
 createNextQuestion(0);
