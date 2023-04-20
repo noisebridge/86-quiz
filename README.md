@@ -21,4 +21,4 @@ Add a new object to the array as follows:
 
 
 To do:
-Escape quotes in the question array, as this causes the quiz to freeze
+Escape single quotes in the question array, as this causes the quiz to freeze
