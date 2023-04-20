@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <title>86 Risk Assessment Quiz</title> 
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=2.0,user-scalable=2"> 
+        <link 
+            href="https://theme-machine.querie.cc/theme"
+            rel="stylesheet""
+            crossorigin="use-credentials"
+            >
+
+    <style>
+    ul {
+        list-style-type: none;
+        margin: 30px;
+        padding: 10px;
+
+    }
+    li {
+    margin:15px 3px;
+    }
+
+    .question {
+        font-size: 22px;
+        font-weight: bold;
+        background-color: lightgray;
+        border:1px dotted darkgray;
+        padding: 10px;
+        margin:20px;
+    }
+
+    .riskBar {
+        background-color: darkgray;
+        margin:10px;
+        width:100%;
+        position:relative;
+        height:10px;
+    }
+
+    #riskBarCount{
+    font-weight: 900;
+    }
+
+    .riskBarWidth {
+        display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    text-indent: -9999px;
+    overflow: hidden;
+    line-height: 2em;
+    z-index: 1;
+    background-color: blue;
+    }
+
+    </style>
+    
+    </head>
+
+<body>
+
+
+<h1><em>Official</em> Noisebridge 86 Risk Assessment Quiz</h1>
+<span id="riskBarCount"></span>
+<div id="riskBar" class="riskBar">
+<span id="riskBarWidth" class="riskBarWidth"></span>
+
+</div>
+
+<div id="quizContainer">
+
+</div>
+
+
+
+
+</body>
+
+
+<script>
+
+//Initialize variables
+//This changes the length of the status bar
+var riskBarCounter=0;
+var questionCounter=0;
+
+var questionObject = [
+{
+    "question": "You see a box of pens at Noisebridge, but after two weeks no one is using them, is it ok to take one home without asking anyone?",
+    "answers": [
+        ["Yes",0,"Yup, no one really cares about a single pen"],
+        ["Yes, but only after asking 2 people",2,"You might annoy people by asking"],
+        ["No, those are for Noisebridge Members Only",5,"You show risk of caring too much about the rules"],
+    ],
+},
+{
+    "question": "You see a half built project at Noisebridge with a note saying 'Do Not Hack' and it is dated from 1 week ago, is it ok to hack it?",
+    "answers": [
+        ["No, under no circumstances",2,"Everything is possible"],
+        ["Yes, but only after asking the project owner",0,"It is excellent to improve projects at Noisebridge"],
+        ["Yes, I can do whatever I want",25,"Your risk of getting banned just increased"],
+    ]
+},
+{
+    "question": "You are an angel investor who wants to invest in all the Noisebridge Startups, you should...",
+    "answers": [
+        ["Interupt everyone while they are working to talk about how great your project is",50,"Almost to 86"],
+        ["Spread the word quietly and let people come to you",10,"Hmmmmm"],
+        ["Don't even try to invest here",0,"This is excellent."],
+    ]
+}
+];
+
+//This function creates the quiz
+function createNextQuestion(questionCounter)
+{
+
+var questionHTML = `<div class="question">${questionObject[questionCounter].question}</div>`;
+
+questionHTML+=`<ul>`;
+
+//This loop creates the answers
+for (var i = 0; i < questionObject[questionCounter].answers.length; i++) {
+    questionHTML+=`
+    <li><button onClick=
+    "showScore(${questionObject[questionCounter].answers[i][1]},'${questionObject[questionCounter].answers[i][2]}')">
+    ${questionObject[questionCounter].answers[i][0]}</button>
+    </li>`;
+}
+
+
+questionHTML+=`</ul>`;
+
+
+
+
+document.getElementById("quizContainer").innerHTML = questionHTML;
+
+}
+
+
+function showScore(score, message)
+{
+console.log("showScore",score,message);
+    riskBarCounter+=score;
+    document.getElementById("riskBarWidth").style.width = riskBarCounter+"%";
+    document.getElementById("riskBarCount").innerHTML = `Your Risk: ${riskBarCounter}%`;
+
+    questionCounter++;
+
+    var response=message;
+    response+=`<br><button onClick="createNextQuestion(${questionCounter})">Next Question</button>`
+
+    document.getElementById("quizContainer").innerHTML = response;
+
+
+}
+
+
+
+createNextQuestion(0);
+
+</script>
+
+
