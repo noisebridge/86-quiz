@@ -2,6 +2,9 @@
 
 This is a quiz to help assess your risk of getting asked to leave from Noisebridge.
 
+All changes to this repo will automatically get pushed the live site here:
+https://noisebridge-86-risk.netlify.app/
+
 To add a question go to the question array in the index.html
 
 Add a new object to the array as follows:
